@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -38,12 +39,17 @@ public class Joke extends Activity {
         //画像の表示
         show();
 	}
-	
+	Bitmap bitmap;
 	//画像の表示
 	private void show(){
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inJustDecodeBounds = true;
-		BitmapFactory.decodeFile(path, opt);
+		bitmap = BitmapFactory.decodeFile(path, opt);
+		if (bitmap == null) {
+			iv = (ImageView)findViewById(R.id.imageView1);
+			iv.setImageResource(R.drawable.scarypicture);
+			return;
+		}
 		
 		int scaleW = opt.outWidth / 300; // →2
 		int scaleH = opt.outHeight / 200; // →3

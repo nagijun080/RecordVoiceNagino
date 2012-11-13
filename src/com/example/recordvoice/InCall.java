@@ -105,7 +105,7 @@ public class InCall extends Activity {
 	//応答の再生
 	public void play() {
 		// リソースID指定
-		mp = MediaPlayer.create(this,R.raw.output);
+		mp = MediaPlayer.create(this,R.raw.police              );
 		//mp.setLooping(true);//ループ再生
 		mp.seekTo(0);		//再生位置0ミリ秒
 		mp.start();			//再生開始
