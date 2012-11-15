@@ -15,6 +15,7 @@ import android.media.MediaScannerConnection.OnScanCompletedListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -24,7 +25,7 @@ public class InCall extends Activity {
 	
 	Timer timer;
 	int counter;
-	int limit = 10;	//次の画面へ移動するまでの秒
+	int limit = 5;	//次の画面へ移動するまでの秒
 	TextView tv2;
 	MediaPlayer mp;
 	MediaRecorder mr;
@@ -105,13 +106,13 @@ public class InCall extends Activity {
 	//応答の再生
 	public void play() {
 		// リソースID指定
-		mp = MediaPlayer.create(this,R.raw.police              );
+		mp = MediaPlayer.create(this,R.raw.police);
 		//mp.setLooping(true);//ループ再生
 		mp.seekTo(0);		//再生位置0ミリ秒
 		mp.start();			//再生開始
     }
 	
-	//10秒タイマー
+	//14秒タイマー
 	public void startTimer(){
 		if(timer != null) timer.cancel();
 		timer = new Timer();
@@ -143,7 +144,7 @@ public class InCall extends Activity {
 		tv2.setText(form.format(counter*1000));
 	}
 	
-	//10秒経過でJokeアクティビティへ
+	//14秒経過でJokeアクティビティへ
 	public void next(){
 		mp.stop();	//再生停止
 		recStop();	//録音停止
@@ -158,13 +159,15 @@ public class InCall extends Activity {
 		//ギャラリーに登録（APIレベル8）
 		//第1引数:context,第2引数:path配列,第3引数:MimeType配列,第4引数:OnScanCompletedリスナー
 		String[] paths = {path};
-		MediaScannerConnection.scanFile(this, paths, null, sc);
+		String[] pathVoiceMime = { "audio/3gpp" };
+		MediaScannerConnection.scanFile(this, paths, pathVoiceMime, sc);
 	}
 	//ギャラリーに登録したあと呼ばれる
     OnScanCompletedListener sc = new OnScanCompletedListener() {
 		@Override
 		public void onScanCompleted(String path, Uri uri) {
-			
+			Log.d("MediaScannerConnection", "Scanned " + path + ":");
+	        Log.d("MediaScannerConnection", "-> uri=" + uri);
 		}
 	};
 	

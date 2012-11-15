@@ -200,7 +200,8 @@ public class Call extends Activity implements Camera.PictureCallback,OnClickList
     OnScanCompletedListener sc = new OnScanCompletedListener() {
 		@Override
 		public void onScanCompleted(String path, Uri uri) {
-			
+			Log.d("MediaScannerConnection", "Scanned " + path + ":");
+	        Log.d("MediaScannerConnection", "-> uri=" + uri);
 		}
 	};
     
