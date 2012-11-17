@@ -76,7 +76,7 @@ public class Call extends Activity implements Camera.PictureCallback,OnClickList
 		CameraInfo cameraInfo = new CameraInfo();
 		for (int i = 0; i < numberOfCameras; i++) {
 			Camera.getCameraInfo(i, cameraInfo);
-			if (cameraInfo.facing == CameraInfo.CAMERA_FACING_BACK) {
+			if (cameraInfo.facing == CameraInfo.CAMERA_FACING_FRONT) {
 				defaultCameraId = i;
 			}
 		}
@@ -129,8 +129,10 @@ public class Call extends Activity implements Camera.PictureCallback,OnClickList
 		/* 画像を保存するときの画像サイズを変更 */ 
 		//カメラパラメータオブジェクトの取得
 		Camera.Parameters param = camera.getParameters();
-		//カメラのサイズを入れるインスタンス
+		//カメラのピクチャーサイズを入れるインスタンス
 		Size pictureSize;
+		//プレビューサイズを入れる変数
+		Size previewSize;
 		//端末がサポートするpictureサイズを取得する
 		List<Size> supportedPictureSizes = param.getSupportedPictureSizes();
 		int i = 0;
@@ -138,10 +140,20 @@ public class Call extends Activity implements Camera.PictureCallback,OnClickList
 			System.out.println("縦の長さ：" + supportedPictureSizes.get(i).height + " 横の長さ：" + supportedPictureSizes.get(i).width);
 			i++;
 		}
+		//端末がサポートするプレビューサイズを取得する
+		i = 0;
+		List<Size> supportPreviewSizes = param.getSupportedPreviewSizes();
+		System.out.println("プレビューサイズ");
+		for (Size size : supportPreviewSizes) {
+			System.out.println("縦の長さ:" + supportPreviewSizes.get(i).height + " 横の長さ:" + supportPreviewSizes.get(i).width);
+			i++;
+		}
 		//縦の長さ480*横の長さ640
 		pictureSize = supportedPictureSizes.get(0);
+		previewSize = supportPreviewSizes.get(2);
 		//paramにサイズをセットする
 		param.setPictureSize(pictureSize.width, pictureSize.height);
+		param.setPreviewSize(previewSize.width, previewSize.height);
 		//cameraにサイズをsetする
 		camera.setParameters(param);
 		/* 画像サイズ変更終了 */

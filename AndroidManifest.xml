@@ -15,7 +15,9 @@
     <application android:icon="@drawable/icon" android:label="@string/app_name">
 		<activity android:name=".Lock"
         		  android:screenOrientation="portrait"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+                  android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|fontScale">
+      			  <!-- ★Androidで特定の設定が変更された場合にアクティビティが再生成されるのを防止★ -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

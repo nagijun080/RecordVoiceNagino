@@ -26,7 +26,7 @@ public class Joke extends Activity {
         setContentView(R.layout.joke);
         
         //もう一度再生ボタン
-        btn = (Button)this.findViewById(R.id.button2);
+        btn = (Button)this.findViewById(R.id.button1);
         btn.setOnClickListener(new Button.OnClickListener(){
 			@Override
 			public void onClick(View v) {
@@ -44,28 +44,28 @@ public class Joke extends Activity {
 	private void show(){
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inJustDecodeBounds = false;
-		bitmap = BitmapFactory.decodeFile(path, opt);
-		Log.d("bitmapに画像があるかどうか", bitmap.toString());
-		if (bitmap == null) {
+		/*if (bitmap == null) {
 			iv = (ImageView)findViewById(R.id.imageView1);
 			iv.setImageResource(R.drawable.scarypicture);
 			return;
-		}
+		}*/
 		//画像があったら実行
 		//if (bitmap != null) {
-			int scaleW = opt.outWidth / 300; // →2
+			/*int scaleW = opt.outWidth / 300; // →2
 			int scaleH = opt.outHeight / 200; // →2
 			int sampleSize = Math.max(scaleW, scaleH); // →2
-			opt.inSampleSize = sampleSize;
+			opt.inSampleSize = sampleSize;*/
 			
 			//opt.inJustDecodeBounds = false;
 			Bitmap bmp = BitmapFactory.decodeFile(path, opt);
-			
-			int w = bmp.getWidth(); // →400
-			int h = bmp.getHeight(); // →300
-			float scale = Math.min((float)300/w, (float)200/h); // →0.6666667
+			Log.d("bmpに画像があるかどうか", bmp.toString());
+			int w = bmp.getWidth(); // →640
+			Log.d("bmp.getWidth() : bmp.getHeight()", String.valueOf(bmp.getWidth()) + " : " + String.valueOf(bmp.getHeight()));
+			int h = bmp.getHeight(); // →480
+//			float scale = Math.min((float)300/w, (float)200/h); // →0.6666667
 			Matrix matrix = new Matrix();
-			matrix.postScale(scale, scale);
+//			matrix.postScale(scale, scale);
+			matrix.postRotate(90);
 			
 			bmp = Bitmap.createBitmap(bmp, 0, 0, w, h, matrix, true);
 			

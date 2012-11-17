@@ -2,40 +2,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView1"
+    <Button
+        android:id="@+id/button3"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="61dp"
+        android:layout_height="40dp"
+        android:layout_weight="0.39"
+        android:background="@drawable/toumei_btn2"
+        android:text="透明ボタン" />
+
+    <DigitalClock
+        android:id="@+id/digitalClock1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="6.25"
+        android:paddingTop="25sp"
+        android:text="DigitalClock"
+        android:textSize="68sp" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.50"
-        android:text="ロック画面"
-        android:textSize="30dp" />
+        android:layout_weight="1.00"
+        android:orientation="vertical" >
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="horizontal" >
-	    <Button
-	        android:id="@+id/button1"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:onClick="kaijo"
-	        android:text="ロック解除" />
-	    <Button
-	        android:id="@+id/button2"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:onClick="test"
-	        android:text="録音再生テスト" />
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/lockbar"
+            android:onClick="kaijo"
+            android:text="ロック解除" />
 
-	    <Button
-	        android:id="@+id/button3"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:background="#ffffff"
-	        android:textColor="#ffffff"
-	        android:onClick="setting" />
+    </LinearLayout>
 
-	</LinearLayout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="test"
+            android:text="録音再生テスト" />
+
+    </LinearLayout>
+
 </LinearLayout>

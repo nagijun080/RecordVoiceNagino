@@ -25,7 +25,7 @@ public class InCall extends Activity {
 	
 	Timer timer;
 	int counter;
-	int limit = 5;	//次の画面へ移動するまでの秒
+	int limit = 15;	//次の画面へ移動するまでの秒
 	TextView tv2;
 	MediaPlayer mp;
 	MediaRecorder mr;
@@ -112,7 +112,7 @@ public class InCall extends Activity {
 		mp.start();			//再生開始
     }
 	
-	//14秒タイマー
+	//15秒タイマー
 	public void startTimer(){
 		if(timer != null) timer.cancel();
 		timer = new Timer();
