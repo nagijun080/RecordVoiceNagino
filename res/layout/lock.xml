@@ -39,15 +39,10 @@
             android:onClick="kaijo"
             android:text="ロック解除" /> -->
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
             
-            <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/rockber_left" />
             
        <!--  <ImageView
             android:id="@+id/imageView2"
@@ -56,9 +51,18 @@
             android:layout_gravity="right"
             android:layout_weight="0.39"
             android:src="@drawable/rockber_right" /> -->
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-    </LinearLayout>
-
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/rockber_left" />
+            </LinearLayout>
+	</FrameLayout>
     <!-- </LinearLayout> -->
 
     <LinearLayout

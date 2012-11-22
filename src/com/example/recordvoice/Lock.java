@@ -11,23 +11,35 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
 //ロック画面
-public class Lock extends Activity{
+public class Lock extends Activity implements OnTouchListener{
 	
 	Button button;
+	int currentX = 0;
+	int currentY = 0;
+	int offsetX = 0; //画面タッチ位置の座標 : X軸
+	int offsetY = 0;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.lock);
-        windowSizes();
+        //rock_leftをonTouchリスナーに登録
+        View image = findViewById(R.id.imageView1);
+        image.setOnTouchListener(this);
+        image.getLeft();
+        image.getTop();
+        image.layout(Integer.valueOf(-310), Integer.valueOf(0), Integer.valueOf(-310) + image.getWidth(), image.getHeight());
+        //windowSizes();
         //getResourceSize(R.drawable.rockber_right);
-        getResourceSize(R.id.imageView1);
+        //getResourceSize(R.id.imageView1);
         
         // 画面のロックを防ぐ
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -35,7 +47,7 @@ public class Lock extends Activity{
 	}
 
 	//ロック解除ボタンでCallクラスへ移動
-	public void kaijo(View v){
+	public void kaijo(){
 		Intent intent = new Intent(this, Call.class);
 		this.startActivity(intent);
 		//this.finish();	//このアクティビティを消滅する
@@ -71,37 +83,48 @@ public class Lock extends Activity{
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		// TODO 自動生成されたメソッド・スタブ
+		int x = (int)event.getRawX();
+		int y = (int)event.getRawY();
+		Log.d("onTouch", "x:" + x + " y:" + y);
+		if (v == findViewById(R.id.imageView1)) {
+			if (x >= 550) {
+				kaijo();
+			}
+		}
+		switch(event.getAction()) {
+		
+		case MotionEvent.ACTION_DOWN:
+			currentX = v.getLeft();
+			currentY = v.getTop();
+			offsetX = x;
+			offsetY = y;
+			Log.d("ACTION_DOWN", "currentX:" + currentX +
+					" currentY:" + currentY + " offsetX:" + offsetX + " offsetY:" + offsetY);
+			break;
+		case MotionEvent.ACTION_MOVE:
+			int diffX = offsetX - x;
+			int diffY = offsetY - y;
+			currentX -= diffX;
+			currentY -= diffY;
+			Log.d("Action_move", "diffX:" + diffX + " diffY:" + diffY + " currentX:" + currentX + " currentY:" + currentY);
+			//画像の移動
+			v.layout(currentX, currentY, currentX + v.getWidth(), currentY + v.getHeight());
+			offsetX = x;
+			offsetY = y;
+			Log.d("Action_move", "offsetX:" + offsetX + " offsetY:" + offsetY + " currentX:" + currentX + " currentY:" + currentY);
+			
+			break;
+		
+		}
+		return true;
+	}
 	
 	//アプリを終了させる
 	//異常終了
 	//フロントカメラ
-	
-	//画面のサイズを取得してlogに出す
-	public void windowSizes() {
-		WindowManager wm = getWindowManager();
-        Display display = wm.getDefaultDisplay();
-        DisplayMetrics metrics = new DisplayMetrics();
-        display.getMetrics(metrics);
- 
-        Log.d("DISPLAY", "density：" + metrics.density);
-        Log.d("DISPLAY", "densityDpi：" + metrics.densityDpi);
-        Log.d("DISPLAY", "scaledDensity：" + metrics.scaledDensity);
-        Log.d("DISPLAY", "widthPixels：" + metrics.widthPixels);
-        Log.d("DISPLAY", "heightPixels：" + metrics.heightPixels);
-        Log.d("DISPLAY", "xdpi：" + metrics.xdpi);
-        Log.d("DISPLAY", "ydpi：" + metrics.ydpi);
-
-	}
-
-	
-	//リソースの画像サイズを取得する
-	public void getResourceSize(int resourceName) {
-		//リソースからbitmapを作成
-		/*Bitmap rockImage = BitmapFactory.decodeResource(this.getResources(), resourceName);
-		Log.d("rockberのサイズ", "rockImage.getWidth()-->" + rockImage.getWidth() + "rockImage.getHeight()-->" + rockImage.getHeight());*/
-		ImageView image = (ImageView)findViewById(resourceName);
-		Log.d("image.getTop() : image.getRight()",String.valueOf(image.getTop()) + " : " + String.valueOf(image.getLeft()));
-		image.layout(image.getRight() + 200, image.getTop(), (image.getRight() + 200) + image.getWidth(), (image.getTop()) + image.getHeight());
-	}
 	
 }
