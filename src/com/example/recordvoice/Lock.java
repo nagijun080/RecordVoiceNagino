@@ -116,7 +116,9 @@ public class Lock extends Activity implements OnTouchListener{
 			offsetX = x;
 			offsetY = y;
 			Log.d("Action_move", "offsetX:" + offsetX + " offsetY:" + offsetY + " currentX:" + currentX + " currentY:" + currentY);
-			
+			break;
+		case MotionEvent.ACTION_UP:
+			v.layout(0, 0, v.getWidth(), v.getHeight());
 			break;
 		
 		}
