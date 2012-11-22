@@ -37,12 +37,11 @@
 
         <Button
             android:id="@+id/button1"
-            android:layout_width="112dp"
+            android:layout_width="104dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="0.9sp"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="30dp"
             android:background="@drawable/endbtn"
-            android:paddingLeft="15sp"
             android:text="終了（写真を撮る）" />
 
 	</LinearLayout>

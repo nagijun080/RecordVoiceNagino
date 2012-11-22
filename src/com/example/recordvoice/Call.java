@@ -37,6 +37,7 @@ public class Call extends Activity implements Camera.PictureCallback,OnClickList
 	int numberOfCameras; 
 	Button button;	//写真を撮るボタン
 	public Camera camera;	//カメラオブジェクト
+	Integer defaultCameraId = 0;	//カメラID（バック＝０、フロント＝１で初期値はバック）
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,8 +58,10 @@ public class Call extends Activity implements Camera.PictureCallback,OnClickList
  		// 利用可能なカメラの個数を取得
  	    numberOfCameras = Camera.getNumberOfCameras();
  	    System.out.println(numberOfCameras);
+ 	    //フロントカメラを使う
+ 	    cameraDevicesId();
         //カメラをオープン
- 		camera = Camera.open(cameraDevicesId());
+ 		camera = Camera.open(defaultCameraId);
  		//プレビュー開始
  		camera.startPreview();
 	}
@@ -71,8 +74,7 @@ public class Call extends Activity implements Camera.PictureCallback,OnClickList
 		mp.seekTo(0);		//再生位置0ミリ秒
 		mp.start();			//再生開始
     }
-	public Integer cameraDevicesId() {
-		Integer defaultCameraId = 0;
+	public void cameraDevicesId() {
 		CameraInfo cameraInfo = new CameraInfo();
 		for (int i = 0; i < numberOfCameras; i++) {
 			Camera.getCameraInfo(i, cameraInfo);
@@ -81,7 +83,6 @@ public class Call extends Activity implements Camera.PictureCallback,OnClickList
 			}
 		}
 		Log.d("cameraDevicesNumber()",defaultCameraId.toString());
-		return defaultCameraId;
 	}
 	
 	//5秒タイマー
@@ -163,6 +164,7 @@ public class Call extends Activity implements Camera.PictureCallback,OnClickList
 	@Override
 	//写真を撮った後、自動的に呼ばれる
 	public void onPictureTaken(byte[] data, Camera c) {
+		
 		try{
 			// SDカードのディレクトリ
 	        File dir = Environment.getExternalStorageDirectory();

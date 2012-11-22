@@ -8,6 +8,7 @@ import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.hardware.Camera;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.media.MediaScannerConnection;
@@ -31,6 +32,7 @@ public class InCall extends Activity {
 	MediaRecorder mr;
 	boolean isRecording = false;	//録音中かどうか
 	String path;
+	Camera camera;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
