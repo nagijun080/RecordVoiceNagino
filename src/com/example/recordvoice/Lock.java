@@ -17,6 +17,7 @@ import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 //ロック画面
 public class Lock extends Activity implements OnTouchListener{
@@ -87,6 +88,8 @@ public class Lock extends Activity implements OnTouchListener{
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		// TODO 自動生成されたメソッド・スタブ
+		ImageView rockbarImage;
+		
 		int x = (int)event.getRawX();
 		int y = (int)event.getRawY();
 		Log.d("onTouch", "x:" + x + " y:" + y);
@@ -106,13 +109,18 @@ public class Lock extends Activity implements OnTouchListener{
 					" currentY:" + currentY + " offsetX:" + offsetX + " offsetY:" + offsetY);
 			break;
 		case MotionEvent.ACTION_MOVE:
+			//画像をrockbar_leftに変える
+			rockbarImage = (ImageView)v;
+			
 			int diffX = offsetX - x;
+			int diffX_reverse = x - offsetX;
 			int diffY = offsetY - y;
+			rockbarImage.setLayoutParams(new LinearLayout.LayoutParams(diffX_reverse, 140));
 			currentX -= diffX;
 			currentY -= diffY;
 			Log.d("Action_move", "diffX:" + diffX + " diffY:" + diffY + " currentX:" + currentX + " currentY:" + currentY);
 			//画像の移動
-			v.layout(currentX, currentY, currentX + v.getWidth(), currentY + v.getHeight());
+			v.layout(currentX, 0, currentX + v.getWidth(), v.getHeight());
 			offsetX = x;
 			offsetY = y;
 			Log.d("Action_move", "offsetX:" + offsetX + " offsetY:" + offsetY + " currentX:" + currentX + " currentY:" + currentY);
